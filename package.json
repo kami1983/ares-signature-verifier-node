@@ -1,0 +1,17 @@
+{
+  "name": "ares-signature-verifier-node",
+  "version": "1.0.1",
+  "description": "This is a back-end program for verifying private key messages.",
+  "main": "index.js",
+  "author": "kami",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@polkadot/api": "^5.2.1",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+  },
+  "scripts": {
+    "serve": "node index.js"
+  }
+}
