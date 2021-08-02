@@ -4,8 +4,8 @@ import mysql from 'mysql';
 function dbConn() {
 
     return mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
+        host: '152.136.190.11',
+        user: 'ares_crowdloan_contribute',
         password: '12345678',
         port: '3306',
         database: 'ares_crowdloan_contribute'
@@ -48,9 +48,10 @@ export function insertBindRelations(sql_param_arr) {
             return;
         }
         console.log('--------------------------INSERT----------------------------');
-        //console.log('INSERT ID:',result.insertId);
+        console.log('INSERT ID:',result.insertId);
         console.log('INSERT ID:', result);
         console.log('-----------------------------------------------------------------\n\n');
+
     });
     connection.end();
 }

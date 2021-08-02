@@ -1,4 +1,6 @@
 import express from 'express'
+import cors from 'cors'
+import bodyParser from 'body-parser'
 import {signatureVaild} from './units/signature.js'
 import {insertBindRelations} from './units/db_connection.js'
 
@@ -39,13 +41,19 @@ app.get('/test', async function (req, res) {
 
 // Set body url encode middleware else your can not dispose post response.
 app.use(express.urlencoded())
+app.use(cors())
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json())
 
 // Need post keys with `ksm_address`, `eth_address`, `sign_str`
 app.post('/bind-eth', async function (req, res) {
+    console.log(req.body)
     const signedMessage = req.body.eth_address
     const signature = req.body.sign_str
     const publicKey = req.body.ksm_address
-    console.log(publicKey,signedMessage,signature)
+    // console.log(publicKey,signedMessage,signature)
     // Test sign is vaild.
     let verify_result = await signatureVaild(signedMessage, signature, publicKey).catch((reason) => {
         console.log('Occur an exception.')
@@ -57,8 +65,7 @@ app.post('/bind-eth', async function (req, res) {
         let addSqlParams = [publicKey, signedMessage, signature, 1 , 'KSM', getDateTime() ,getDateTime()]
         insertBindRelations(addSqlParams)
     }
-
     res.json(undefined == verify_result ? false : verify_result)
 })
 
-app.listen(8081)
+app.listen(8080)
