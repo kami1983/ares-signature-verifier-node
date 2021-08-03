@@ -47,6 +47,11 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json())
 
+app.get('/get-extrinsic/:address', function (req,res) {
+    let params = req.params;
+    res.json(params)
+})
+
 // Need post keys with `ksm_address`, `eth_address`, `sign_str`
 app.post('/bind-eth', async function (req, res) {
     console.log(req.body)

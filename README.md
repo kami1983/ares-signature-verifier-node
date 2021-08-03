@@ -22,5 +22,5 @@ docker build . -t kami/ares-ethbind-node
 
 ## run docker 
 ```angular2html
-$ docker run --rm -it --name ares-signature-verifier-node -v /lin/codes/ares-ksm-crowdloan-info/crowdloan_contribute:/usr/src/app kami/ares-ethbind-node
+$ docker run --rm -it --name ares-signature-verifier-node -p 8081:8080 -v /lin/codes/ares-signature-verifier-node:/usr/src/app kami/ares-ethbind-node
 ```
