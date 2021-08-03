@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import {signatureVaild} from './units/signature.js'
-import {insertBindRelations} from './units/db_connection.js'
+import {insertBindRelations,selectDataByAddress} from './units/db_connection.js'
 
 // init express frame application
 const app = express()
@@ -48,8 +48,11 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json())
 
 app.get('/get-extrinsic/:address', function (req,res) {
-    let params = req.params;
-    res.json(params)
+    let {address} = req.params;
+    // Find data by address
+    selectDataByAddress(address).then(function (result) {
+        res.json(result)
+    })
 })
 
 // Need post keys with `ksm_address`, `eth_address`, `sign_str`

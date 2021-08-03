@@ -34,6 +34,29 @@ function createTableSql() {
         ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;\n"
 }
 
+
+export function selectDataByAddress(address) {
+    return new Promise(function(resolve, reject) {
+        var sql = 'SELECT * FROM extrinsic_item WHERE who = ? ';
+        var param_arr = [address]
+
+        const connection = dbConn();
+        connection.connect();
+        connection.query(sql, param_arr , function (err, result) {
+            if(err){
+                console.log('[SELECT ERROR] - ',err.message);
+                reject(err)
+                return;
+            }
+            console.log('--------------------------SELECT----------------------------');
+            console.log(result);
+            console.log('------------------------------------------------------------\n\n');
+            resolve(result)
+        });
+        connection.end();
+    });
+}
+
 // To do a mysql query
 export function insertBindRelations(sql_param_arr) {
 
@@ -51,7 +74,6 @@ export function insertBindRelations(sql_param_arr) {
         console.log('INSERT ID:',result.insertId);
         console.log('INSERT ID:', result);
         console.log('-----------------------------------------------------------------\n\n');
-
     });
     connection.end();
 }
